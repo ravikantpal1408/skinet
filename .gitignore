@@ -1,0 +1,7 @@
+bin
+.DS_Store
+Debug   
+node_modules
+.idea
+.vscode 
+obj
