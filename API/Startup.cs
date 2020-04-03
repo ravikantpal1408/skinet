@@ -21,14 +21,12 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Interface injection 
-            services.AddScoped<IProductRepository, ProductRepository>();
-            
+            services.AddScoped<IProductRepository, ProductRepository>(); // Interface injection 
+
             services.AddControllers();
-            
+
             services.AddDbContext<StoreContext>(x => x.UseSqlite(
                 _configuration.GetConnectionString("DefaultConnection")));
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
