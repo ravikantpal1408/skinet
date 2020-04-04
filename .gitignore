@@ -6,3 +6,7 @@ node_modules
 .vscode 
 obj
 publish
+wwwroot
+*.db
+*.rdb
+settings.json
