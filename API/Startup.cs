@@ -22,6 +22,8 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>(); // Interface injection 
+            services.AddScoped(typeof(IGenericRepository<>),
+                (typeof(GenericRepository<>))); // adding generic service injection 🤟
 
             services.AddControllers();
 
