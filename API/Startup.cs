@@ -1,3 +1,5 @@
+using API.Helpers;
+using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -21,7 +23,10 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfiles)); // injecting auto mapper service 👈
+
             services.AddScoped<IProductRepository, ProductRepository>(); // Interface injection 
+
             services.AddScoped(typeof(IGenericRepository<>),
                 (typeof(GenericRepository<>))); // adding generic service injection 🤟
 
@@ -42,6 +47,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseStaticFiles(); // Serving static content 🧑‍🚀
 
             app.UseAuthorization();
 
