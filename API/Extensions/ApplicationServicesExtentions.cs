@@ -5,7 +5,7 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Extentions
+namespace API.Extensions
 {
     public static class ApplicationServicesExtentions
     {

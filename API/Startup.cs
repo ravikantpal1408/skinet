@@ -1,6 +1,6 @@
 using System.Linq;
 using API.Errors;
-using API.Extentions;
+using API.Extensions;
 using API.Helpers;
 using API.Middleware;
 using AutoMapper;
@@ -35,10 +35,18 @@ namespace API
 
             services.AddApplicationService(); // Collection of all custom services 😎
 
-            services.AddSwaggerDocumentaion(); // Custom Extension reference 😎 
+            services.AddSwaggerDocumentation(); // Custom Extension reference 😎 
 
             services.AddDbContext<StoreContext>(x => x.UseSqlite(
                 _configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddCors(opt => 
+            {
+                opt.AddPolicy("CorsPolicy", policy => 
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
 
 
         }
@@ -60,7 +68,9 @@ namespace API
 
             app.UseRouting();
 
-            app.UseStaticFiles(); // Serving static content 🧑‍🚀
+            app.UseStaticFiles(); // Serving static content 🧑‍🚀👍
+            
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

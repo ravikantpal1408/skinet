@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace API.Extentions
+namespace API.Extensions
 {
-    public static class SwaggerExtentionService
+    public static class SwaggerExtensionService
     {
-        public static IServiceCollection AddSwaggerDocumentaion(this IServiceCollection services)
+        public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
