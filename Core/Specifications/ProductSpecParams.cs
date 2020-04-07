@@ -20,7 +20,7 @@
         public string Search 
         { 
             get => _search;
-            set => _search = value.ToString();
+            set => _search = value.ToLower();
         }
     }
 }

@@ -31,17 +31,14 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        /// <summary>
-        /// Getting all products listings 
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productSpecParams)
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
+            [FromQuery] ProductSpecParams productSpecParams)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(productSpecParams);
-            
+
             var countSpec = new ProductWithFiltersForCountSpecification(productSpecParams);
 
             var totalItems = await _productRepo.CountAsync(countSpec);
