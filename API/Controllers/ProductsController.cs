@@ -50,11 +50,7 @@ namespace API.Controllers
             return Ok(new Pagination<ProductToReturnDto>(productSpecParams.PageIndex, productSpecParams.PageSize, totalItems, data));
         }
 
-        /// <summary>
-        /// Getting product using product {id}
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+      
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -72,10 +68,7 @@ namespace API.Controllers
             return Ok(_mapper.Map<Product, ProductToReturnDto>(product));
         }
 
-        /// <summary>
-        /// Getting List of All Brands
-        /// </summary>
-        /// <returns></returns>
+       
         [HttpGet("brands")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
@@ -84,10 +77,7 @@ namespace API.Controllers
             return Ok(await _productBrandRepo.ListAllAsync());
         }
 
-        /// <summary>
-        /// Getting all products type listings
-        /// </summary>
-        /// <returns></returns>
+       
         [HttpGet("types")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
