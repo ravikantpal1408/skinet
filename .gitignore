@@ -10,3 +10,4 @@ wwwroot
 *.db
 *.rdb
 settings.json
+ssl
