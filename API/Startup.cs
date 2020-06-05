@@ -30,6 +30,7 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddAutoMapper(typeof(MappingProfiles)); // injecting auto mapper service 👈
 
             services.AddControllers();
@@ -41,7 +42,8 @@ namespace API
             services.AddDbContext<StoreContext>(x => x.UseSqlite(
                 _configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSingleton<ConnectionMultiplexer>(c =>
+            // for redis db 🤠
+            services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var configuration = ConfigurationOptions.Parse(_configuration.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);

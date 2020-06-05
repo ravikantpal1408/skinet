@@ -11,12 +11,10 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
         {
-            services.AddScoped<IProductRepository, ProductRepository>(); // Interface injection 
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
-
             services.AddScoped(typeof(IGenericRepository<>),
-                (typeof(GenericRepository<>))); // adding generic service injection 🤟
-            
+                (typeof(GenericRepository<>)));    // adding generic service injection 🤟
             
             // API ERROR HANDLING 👇 for un-usual behaviour
             services.Configure<ApiBehaviorOptions>(options =>
