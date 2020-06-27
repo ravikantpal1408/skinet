@@ -38,6 +38,8 @@ namespace API
 
             services.AddApplicationService(); // Collection of all custom services 😎
 
+            services.AddIdentityServices(); // This will seed Identity user 👩‍💻    
+            
             services.AddSwaggerDocumentation(); // Custom Extension reference 😎 
 
             services.AddDbContext<StoreContext>(x => x.UseSqlite(
@@ -47,7 +49,6 @@ namespace API
                 {
                     x.UseSqlite(_configuration.GetConnectionString("IdentityConnection"));
                 });
-            
             
             // for redis db 🤠
             services.AddSingleton<IConnectionMultiplexer>(c =>
