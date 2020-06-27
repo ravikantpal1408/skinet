@@ -38,7 +38,7 @@ namespace API
 
             services.AddApplicationService(); // Collection of all custom services 😎
 
-            services.AddIdentityServices(); // This will seed Identity user 👩‍💻    
+            services.AddIdentityServices(_configuration); // This will seed Identity user 👩‍💻    
             
             services.AddSwaggerDocumentation(); // Custom Extension reference 😎 
 
@@ -88,6 +88,8 @@ namespace API
             app.UseStaticFiles(); // Serving static content 🧑‍🚀👍
             
             app.UseCors("CorsPolicy");
+
+            app.UseAuthentication(); 
 
             app.UseAuthorization();
 
