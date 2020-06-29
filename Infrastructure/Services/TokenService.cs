@@ -21,7 +21,7 @@ namespace Infrastructure.Services
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
         }
-        public string CreateToke(AppUser user)
+        public string CreateToken(AppUser user)
         {
             var claims = new List<Claim>
             {
@@ -47,5 +47,6 @@ namespace Infrastructure.Services
             return tokenHandler.WriteToken(token);
 
         }
+
     }
 }

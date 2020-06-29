@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Runtime.InteropServices;
 using API.Errors;
 using API.Extensions;
 using API.Helpers;
@@ -31,7 +32,6 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.AddAutoMapper(typeof(MappingProfiles)); // injecting auto mapper service 👈
 
             services.AddControllers();
@@ -39,33 +39,29 @@ namespace API
             services.AddApplicationService(); // Collection of all custom services 😎
 
             services.AddIdentityServices(_configuration); // This will seed Identity user 👩‍💻    
-            
+
             services.AddSwaggerDocumentation(); // Custom Extension reference 😎 
 
             services.AddDbContext<StoreContext>(x => x.UseSqlite(
                 _configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AppIdentityDbContext>(x =>
-                {
-                    x.UseSqlite(_configuration.GetConnectionString("IdentityConnection"));
-                });
-            
+            {
+                x.UseSqlite(_configuration.GetConnectionString("IdentityConnection"));
+            });
+
             // for redis db 🤠
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var configuration = ConfigurationOptions.Parse(_configuration.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);
             });
-            
-            services.AddCors(opt => 
+
+            services.AddCors(opt =>
             {
-                opt.AddPolicy("CorsPolicy", policy => 
-                {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
-                });
+                opt.AddPolicy("CorsPolicy",
+                    policy => { policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"); });
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,10 +82,10 @@ namespace API
             app.UseRouting();
 
             app.UseStaticFiles(); // Serving static content 🧑‍🚀👍
-            
+
             app.UseCors("CorsPolicy");
 
-            app.UseAuthentication(); 
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -97,5 +93,18 @@ namespace API
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+    }
+
+
+    public static class OperatingSystem
+    {
+        public static bool IsWindows() =>
+            RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+        public static bool IsMacOS() =>
+            RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+
+        public static bool IsLinux() =>
+            RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
     }
 }
