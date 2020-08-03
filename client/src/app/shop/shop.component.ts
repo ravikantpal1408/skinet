@@ -13,9 +13,11 @@ export class ShopComponent implements OnInit {
   constructor(private shopService: ShopService) {}
 
   ngOnInit(): void {
+    console.log('shop component : ');
     this.shopService.getProducts().subscribe(
       (response) => {
         this.products = response.data;
+        console.log(this.products)
       },
       (error) => {
         console.log("Error :", error);
